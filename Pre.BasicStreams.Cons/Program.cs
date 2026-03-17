@@ -29,6 +29,6 @@ catch(FileNotFoundException fileNotFoundException)
 {
     Console.WriteLine(fileNotFoundException.Message);
 }
-
+//new school way
 StreamReader streamReader = new StreamReader(fullPathToFile);
 Console.WriteLine(streamReader.ReadToEnd());
