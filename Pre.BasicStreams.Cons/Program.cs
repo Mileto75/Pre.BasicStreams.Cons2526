@@ -15,7 +15,7 @@ if(!File.Exists(fullPathToFile))
 }
 try
 {
-    //open a stream = file is locked by operating system
+    //open a stream; old school way
     FileStream fileStream = new FileStream(fullPathToFile, FileMode.Open);
     var charByte = fileStream.ReadByte();
     while(charByte != -1)
