@@ -1,4 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using System.Text;
+
 Console.WriteLine("Basic streams");
 var pathToDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Pre", "Secrets");
 //check if directory exists
@@ -29,6 +31,46 @@ catch(FileNotFoundException fileNotFoundException)
 {
     Console.WriteLine(fileNotFoundException.Message);
 }
-//new school way
-StreamReader streamReader = new StreamReader(fullPathToFile);
-Console.WriteLine(streamReader.ReadToEnd());
+//how to write to a file
+//old skool style
+try 
+{
+    FileStream fileStream = new FileStream(fullPathToFile, FileMode.Open);
+    string user = "69,Karel,Soete,Langestraat 69 8000 Brugge\r\n";
+    var byteEncoded = Encoding.UTF8.GetBytes(user);
+    //find method to point to a newline.
+    fileStream.Write(byteEncoded);
+    fileStream.Dispose();
+}
+catch(IOException iOException)
+{
+    Console.WriteLine(iOException.Message);
+}
+//StreamWriter => new skool way
+try
+{
+    //using statement block = auto dispose
+    using StreamWriter streamWriter = new StreamWriter(fullPathToFile, true);
+    {
+        string user = "69,Karel,Soete,Langestraat 69 8000 Brugge";
+        streamWriter.WriteLine(user);
+        //calling Dispose() is unnecessary
+        //streamWriter.Dispose();
+    }
+}
+catch (IOException iOxception)
+{
+    Console.WriteLine(iOxception.Message);
+}
+try
+{
+    //new school way
+    StreamReader streamReader = new StreamReader(fullPathToFile);
+    Console.WriteLine(streamReader.ReadToEnd());
+}
+catch (IOException iOexception)
+{
+    Console.WriteLine(iOexception.Message);
+}
+
+
